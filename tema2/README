@@ -1,0 +1,42 @@
+Problema 1. Poduri
+Problema se rezolva printr-un BFS in care, tinand cont de valoarea matricei a, avem diferite seturi de directii de deplasare.
+Retinem in d[i][j] = distanta minima de la punctul de plecare la punctul (i, j).
+
+Complexitate: O(N * M).
+
+Problema 2. Adrese
+Vom rezolva problema folosind paduri de multimi disjuncte.
+Daca reprezentam fiecare utilizator drept un nod intr-un graf, utilizatorii cu cel putin un mail comun vor forma
+o componenta conexa in acest graf. Initial, toti utilizatorii formeaza fiecare cate o componenta conexa.
+In timpul citirii, retinem in hs[s] = indicele unui utilizator care detine mail-ul s.
+Daca intalnim un al utilizator cu acelasi mail atunci unim componentele celor doi.
+Apoi, iteram prin fiecare componenta determinand numele real al utilizatorului (numele lexicografic cel mai mic)
+si lista de mail-uri unice. Complexitate O(NlogN) (cea mai mare complexitate din acest program este data de sortare).
+
+Complexitate: O(NlogN)
+
+Problema 3. Lego
+Se genereaza cu ajutorul metodei backtracking toate submultimile de N elemente ale multimii {1, 2, ..., K}.
+Pentru a verifica cate elemente consecutive pot fi generate cu o submultime construim o dinamica asemanatoare
+problemei rucsacului: dp[x] = numarul minim de elemente care insumate dau valoarea x.
+Se itereaza prin vectorul dp si se stabilesc dimensiunile secventelor continue pentru care dp[i] >= 1 si dp[i] <= T.
+In cazul in care putem genera cu o submultime K * T valori atunci ne oprim din cautare,
+deoarece orice alta submultime nu poate genera mai multe.
+
+Complexitate: O(comb(K, N) * T * K * N) 
+
+Problema 4. Retea
+Pentru a determina cate deconectari se obtin prin eliminarea unui nod vom determina cate conexiuni erau initial (N * (N-1))
+din care vom scadea conexiunile de acum (s1 * (s1 - 1) + s2 * (s2 - 1) + ... + sk * (sk - 1)),
+unde sj = dimensiunea componentei conexe j.
+
+Prin eliminarea unui noi se disting 2 cazuri:
+
+a) Nodul nu era punct de articulatie. In acest caz, ramane o componenta conexa de dimensiune N - 1,
+deci numarul de deconectari este N * (N - 1) - (N - 1) * (N - 2) = 2 * (N - 1).
+b) Nodul era punct de articulatie. In acest caz trebuie sa determinam dimensiunile componentelor conexe care se formeaza
+prin eliminarea nodului. Vom retine in subarb[i] = dimensiunea subarborelui nodului i in arborele de parcurgere dfs.
+Acest vector il vom calcula in timp ce stabilim punctele de articulatie.
+Prin eliminarea nodului i, vor forma componente conexe noi doar fii lui i care nu au o legatura mai sus de i.
+
+Complexitate: O(N).
